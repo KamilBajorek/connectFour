@@ -6,4 +6,6 @@ class FIELD:
         self.isFilled = 0
 
     def fill(self, canvas, colour):
-        canvas.itemconfig(self.circle, fill=colour)
+        if self.isFilled == 0:
+            canvas.itemconfig(self.circle, fill=colour)
+            self.isFilled = 1

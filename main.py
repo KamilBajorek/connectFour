@@ -1,15 +1,20 @@
 import tkinter
 from tkinter import DISABLED
+from tkinter.constants import NORMAL
 
 import field as f
 from player import PLAYER
+from rules import RULES_VERTICAL, RULES_HORIZONTAL, RESULT
 
-player1 = PLAYER("red", "Gracz1")
-player2 = PLAYER("yellow", "Gracz2")
+rulesVertical = RULES_VERTICAL()
+rulesHorizontal = RULES_HORIZONTAL()
+
+player1 = PLAYER("red", "Gracz1", 1)
+player2 = PLAYER("yellow", "Gracz2", 2)
 
 default_width = 100
 buttons = []
-fields = []
+fields = list()
 activePlayerText = "Aktywny gracz: "
 active_player = player1
 
@@ -38,7 +43,54 @@ def button_click(number):
     add_coin_to_column(number, max_unfilled, active_player.colour)
 
     if max_unfilled == 1:
-        buttons[number-1]["state"] = DISABLED
+        buttons[number - 1]["state"] = DISABLED
+
+    result = check_result(number, max_unfilled)
+    if result != RESULT.IN_PROGRESS:
+        finish_game(result)
+    change_active_player()
+
+
+def finish_game(result):
+    block_game()
+
+    popup = tkinter.Toplevel()
+    popup.geometry("250x150")
+    game_over_label = tkinter.Label(popup, text="Koniec gry!")
+    game_over_label.pack(fill='x', padx=50, pady=5)
+
+    resultText = ""
+
+    if result == RESULT.DRAW:
+        resultText = "REMIS"
+    else:
+        resultText = "WYGRAŁ GRACZ " + str(result)
+
+    result_label = tkinter.Label(popup, text=resultText)
+    result_label.pack(fill='x', padx=50, pady=5)
+
+    close_button = tkinter.Button(popup, text="Zamknij", command=popup.destroy)
+    close_button.pack(padx=50, pady=5)
+
+
+def block_game():
+    for button in buttons:
+        button["state"] = DISABLED
+
+
+def check_result(column, row):
+    vertical_result = rulesVertical.ktoWygral(fields, column, row)
+    horizontal_result = rulesHorizontal.ktoWygral(fields, column, row)
+
+    if vertical_result != RESULT.IN_PROGRESS:
+        return vertical_result
+    if horizontal_result != RESULT.IN_PROGRESS:
+        return horizontal_result
+    return RESULT.IN_PROGRESS
+
+
+def change_active_player():
+    global active_player
 
     if active_player == player1:
         active_player = player2
@@ -62,7 +114,19 @@ def add_coin_to_column(column, max_unfilled, colour):
         return
     for field in fields:
         if field.row == max_unfilled and field.column == column:
-            field.fill(canvas, colour)
+            field.fill(canvas, colour, active_player.id)
+
+
+def reset_game():
+    global active_player
+    for field in fields:
+        canvas.itemconfig(field.circle, fill="")
+        field.isFilled = 0
+        field.player = 0
+    for button in buttons:
+        button["state"] = NORMAL
+    active_player = player1
+    change_active_player_label()
 
 
 tkinter.Canvas.create_circle = _create_circle
@@ -76,6 +140,9 @@ def change_active_player_label():
 
 gameStatus = tkinter.Label(window, textvariable=gameStatusText)
 gameStatus.place(x=20, y=20)
+
+resetButton = tkinter.Button(window, text="Resetuj", command=reset_game)
+resetButton.place(x=160, y=20)
 
 gameStatusText.set(activePlayerText + active_player.name)
 

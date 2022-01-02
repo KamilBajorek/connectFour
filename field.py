@@ -4,8 +4,10 @@ class FIELD:
         self.column = _column
         self.row = _row
         self.isFilled = 0
+        self.player = 0
 
-    def fill(self, canvas, colour):
+    def fill(self, canvas, colour, _id):
         if self.isFilled == 0:
             canvas.itemconfig(self.circle, fill=colour)
             self.isFilled = 1
+            self.player = _id

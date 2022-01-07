@@ -4,10 +4,11 @@ from tkinter.constants import NORMAL
 
 import field as f
 from player import PLAYER
-from rules import RULES_VERTICAL, RULES_HORIZONTAL, RESULT
+from rules import RULES_VERTICAL, RULES_HORIZONTAL, RESULT, RULES_DIAGONALLY
 
 rulesVertical = RULES_VERTICAL()
 rulesHorizontal = RULES_HORIZONTAL()
+rulesDiagonally = RULES_DIAGONALLY()
 
 player1 = PLAYER("red", "Gracz1", 1)
 player2 = PLAYER("yellow", "Gracz2", 2)
@@ -59,14 +60,14 @@ def finish_game(result):
     game_over_label = tkinter.Label(popup, text="Koniec gry!")
     game_over_label.pack(fill='x', padx=50, pady=5)
 
-    resultText = ""
+    result_text = ""
 
     if result == RESULT.DRAW:
-        resultText = "REMIS"
+        result_text = "REMIS"
     else:
-        resultText = "WYGRAŁ GRACZ " + str(result)
+        result_text = "WYGRAŁ GRACZ " + str(result)
 
-    result_label = tkinter.Label(popup, text=resultText)
+    result_label = tkinter.Label(popup, text=result_text)
     result_label.pack(fill='x', padx=50, pady=5)
 
     close_button = tkinter.Button(popup, text="Zamknij", command=popup.destroy)
@@ -81,11 +82,14 @@ def block_game():
 def check_result(column, row):
     vertical_result = rulesVertical.ktoWygral(fields, column, row)
     horizontal_result = rulesHorizontal.ktoWygral(fields, column, row)
+    diagonally_result = rulesDiagonally.ktoWygral(fields, column, row)
 
     if vertical_result != RESULT.IN_PROGRESS:
         return vertical_result
     if horizontal_result != RESULT.IN_PROGRESS:
         return horizontal_result
+    if diagonally_result != RESULT.IN_PROGRESS:
+        return diagonally_result
     return RESULT.IN_PROGRESS
 
 

@@ -11,7 +11,8 @@ class RULES:
                 return False
         return True
 
-    def getFieldAt(self, fields, column, row):
+    @staticmethod
+    def getFieldAt(fields, column, row):
         for field in fields:
             if field.row == row and field.column == column:
                 return field
@@ -62,7 +63,7 @@ class RULES_DIAGONALLY(RULES):
                     return res
 
             col_plus = clicked_column + i
-            if self.czy_prawidlowy_punkt(col_plus, row_min) and self.czy_prawidlowy_punkt(col_plus + 3, row_min + 3):
+            if self.czy_prawidlowy_punkt(col_plus, row_min) and self.czy_prawidlowy_punkt(col_plus - 3, row_min + 3):
                 res = self.sprawdzOdPrawejDoLewej(fields, col_plus, row_min)
                 if res is not None:
                     return res

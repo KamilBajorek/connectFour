@@ -3,13 +3,14 @@ from tkinter import DISABLED
 from tkinter.constants import NORMAL
 
 import field as f
+from Exceptions import FullColumnException
 from player import PLAYER
 from rules import RULES_VERTICAL, RULES_HORIZONTAL, RESULT, RULES_DIAGONALLY
 
 import ui
 
 
-class main:
+class Main:
     def get_max_unfilled_in_column(self, column):
         max_unfilled = 0
         for field in self.ui.fields:
@@ -71,7 +72,7 @@ class main:
 
     def add_coin_to_column(self, column, max_unfilled, colour):
         if max_unfilled == 0:
-            return
+            raise FullColumnException()
         for field in self.ui.fields:
             if field.row == max_unfilled and field.column == column:
                 field.fill(self.ui.canvas, colour, self.active_player.id)
@@ -118,4 +119,4 @@ class main:
         self.ui.window.mainloop()
 
 
-main = main()
+main = Main()

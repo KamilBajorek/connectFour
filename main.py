@@ -116,7 +116,8 @@ class Main:
                 circle = self.ui.canvas.create_circle(70 + (self.default_width * i), 160 + (self.default_width * j), 40)
                 self.ui.fields.append(f.FIELD(circle, i + 1, j + 1))
 
-        self.ui.window.mainloop()
+        if __name__ == '__main__':
+            self.ui.window.mainloop()
 
 
 main = Main()

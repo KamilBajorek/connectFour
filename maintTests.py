@@ -8,7 +8,12 @@ class MainTests(unittest.TestCase):
         self.main = Main()
 
     def testTwoMovesAtTheSameColumn(self):
-        self.main.add_coin_to_column(1, 0, "red")
+        self.main.button_click(1)
+        self.main.button_click(1)
+        self.main.button_click(1)
+        self.main.button_click(1)
+        self.main.button_click(1)
+        self.main.button_click(1)
 
         field1 = RULES.getFieldAt(self.main.ui.fields, 1, 6)
 

@@ -10,7 +10,7 @@ from rules import RULES_DIAGONALLY
 import field as f
 
 
-class RulesTests(unittest.TestCase):
+class RulesTest(unittest.TestCase):
     def setUp(self):
         self.player1 = player.PLAYER("red", "gracza 1", 1)
         self.player2 = player.PLAYER("yellow", "gracza 2", 2)

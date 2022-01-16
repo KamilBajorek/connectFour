@@ -3,7 +3,7 @@ from main import Main
 from rules import RULES
 
 
-class MainTests(unittest.TestCase):
+class MainTest(unittest.TestCase):
     def setUp(self):
         self.main = Main()
 

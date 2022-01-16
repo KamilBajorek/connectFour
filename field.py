@@ -7,6 +7,12 @@ class FIELD:
         self.player = 0
 
     def fill(self, canvas, colour, _id):
+        """ Metoda uzupełnia pole, nadając mu kolor oraz przypisując numer gracza.
+                Args:
+                      canvas: obiekt przekazywany z UI, pozwala na skonfigurowanie koloru obiektu
+                      colour: kolor pola
+                      _id: id gracza
+        """
         if self.isFilled == 0:
             canvas.itemconfig(self.circle, fill=colour)
             self.isFilled = 1

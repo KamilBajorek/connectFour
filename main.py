@@ -12,6 +12,12 @@ import ui
 
 class Main:
     def get_max_unfilled_in_column(self, column):
+        """ Pobranie najniższego numeru wiersza dla danej kolumny, który nie jest uzupełniony.
+             Args:
+                 column: Numer kolumny
+             Returns:
+                Maksymalny (czyli najwyższy) wiersz, który nie został uzupełniony dla tej kolumny
+             """
         max_unfilled = 0
         for field in self.ui.fields:
             if field.column == column and field.isFilled == 0:
@@ -20,6 +26,15 @@ class Main:
         return max_unfilled
 
     def button_click(self, number):
+        """ Obsługuje pojedyncze kliknięcie przycisku nad kolumną.
+            Sprawdza najwyższy wolny wiersz do którego można dorzucić monetę dla tej kolumny.
+            Dodaje monetę do kolumny.
+            Blokuje przycisk jeśli zapełniono wszystkie kolumny.
+            Sprawdza wynik gry i kończy ją w przypadku zwycięstwa/remisu.
+            W przeciwnym wypadku zmienia aktywnego gracza.
+            Args:
+                number: Numer klikniętej kolumny
+        """
         max_unfilled = self.get_max_unfilled_in_column(number)
         self.add_coin_to_column(number, max_unfilled, self.active_player.colour)
 
@@ -32,6 +47,12 @@ class Main:
         self.change_active_player()
 
     def finish_game(self, result):
+        """ Metoda kończenia gry - blokuje przyciski do wrzucania monet.
+            W zależności od wyniku ustawia zmienną result_text i przekazuje ją do wyskakującego
+            okienka z wynikiem gry.
+            Args:
+                result: Obiekt klasy RESULT
+        """
         self.ui.block_buttons()
 
         result_text = ""
@@ -43,6 +64,14 @@ class Main:
         self.ui.finish_game_popup(result_text)
 
     def check_result(self, column, row):
+        """ Metoda sprawdzania wyniku dla klikniętej kolumny i wiersza.
+            Sprawdza wszystkie kombinacje dla których możliwe jest określenie wyniku.
+            Args:
+                column: numer kolumny
+                row: numer wiersza
+            Returns:
+                 Wynik gry - obiekt RESULT
+        """
         vertical_result = self.rulesVertical.ktoWygral(self.ui.fields, column, row)
         horizontal_result = self.rulesHorizontal.ktoWygral(self.ui.fields, column, row)
         diagonally_result = self.rulesDiagonally.ktoWygral(self.ui.fields, column, row)
@@ -56,6 +85,8 @@ class Main:
         return RESULT.IN_PROGRESS
 
     def change_active_player(self):
+        """ Metoda zmienia aktywnego gracza. Ustawia pole active_player oraz przekazuje zmianę do UI.
+        """
         if self.active_player == self.player1:
             self.active_player = self.player2
         else:
@@ -63,14 +94,33 @@ class Main:
         self.ui.change_active_player_label(self.active_player.name)
 
     def _create_circle(self, x, y, r, **kwargs):
+        """ Metoda do tworzenia kół, reprezentujących pola, do wrzucania monet
+        """
         return self.create_oval(x - r, y - r, x + r, y + r, **kwargs)
 
     def create_button(self, x, y, name, column):
+        """ Metoda do tworzenia przycisków
+            Args:
+                x: Położenie x przycisku
+                y: Położenie y przycisku
+                name: Nazwa przycisku (np. Kolumna 1)
+                column: Numer kolumny przycisku
+            Returns:
+                Zwraca ID przycisku
+        """
         button = tkinter.Button(self.ui.window, text=name, command=lambda: self.button_click(column))
         button.place(x=x, y=y, width=self.default_width)
         return button
 
     def add_coin_to_column(self, column, max_unfilled, colour):
+        """ Metoda dodawania monety do kolumny.
+            Jeśli następuje próba wrzucenia monety do kolumny 0 - podnoszony jest wyjątek FullColumnException
+            W przeciwnym wypadku znajdywany jest odpowiedni obiekt klasy Field i pole jest uzupełnianie.
+            Args:
+                column: numer kolumny
+                max_unfilled: numer wiersza do wrzucenia monety
+                colour: kolor gracza
+        """
         if max_unfilled == 0:
             raise FullColumnException()
         for field in self.ui.fields:
@@ -78,6 +128,9 @@ class Main:
                 field.fill(self.ui.canvas, colour, self.active_player.id)
 
     def reset_game(self):
+        """ Metoda służąca do resetowania gry. Ustawia pola na nieuzupełnione isFilled oraz ustawia gracza na 0.
+            Odblokowuje przyciski do wrzucania monet oraz zmienia aktywnego gracza.
+        """
         for field in self.ui.fields:
             self.ui.canvas.itemconfig(field.circle, fill="")
             field.isFilled = 0

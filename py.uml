@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>Python</ID>
+  <OriginalElement>#C:/Users/Kamil/WORKSPACE/studia/connectFour/src/Exceptions.py</OriginalElement>
+  <nodes>
+    <node x="459.59375" y="-491.0">typing.Hashable</node>
+    <node x="396.0" y="-256.0">ui.UI</node>
+    <node x="632.0390625" y="245.5">rules.RULES_VERTICAL</node>
+    <node x="-106.0" y="-122.0">BaseException</node>
+    <node x="40.0" y="-201.0">field.FIELD</node>
+    <node x="491.59375" y="-412.0">object</node>
+    <node x="1206.0" y="-156.5">rules.RULES</node>
+    <node x="995.0" y="-168.0">player.PLAYER</node>
+    <node x="-163.0" y="427.0">Exceptions.FullColumnException</node>
+    <node x="1188.59375" y="168.0">rules.RULES_DIAGONALLY</node>
+    <node x="273.0" y="-146.0">main.Main</node>
+    <node x="1575.59375" y="245.5">rules.RULES_HORIZONTAL</node>
+    <node x="650.0" y="-333.0">game.Game</node>
+    <node x="-91.0" y="258.0">Exception</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="object" target="typing.Hashable" relationship="REALIZATION">
+      <point x="0.0" y="-14.5" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="player.PLAYER" target="object" relationship="REALIZATION">
+      <point x="0.0" y="-60.5" />
+      <point x="1090.5" y="-358.0" />
+      <point x="528.59375" y="-358.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="rules.RULES_DIAGONALLY" target="rules.RULES" relationship="REALIZATION">
+      <point x="0.0" y="-104.5" />
+      <point x="1372.09375" y="143.0" />
+      <point x="1356.5" y="143.0" />
+      <point x="0.0" y="49.0" />
+    </edge>
+    <edge source="ui.UI" target="object" relationship="REALIZATION">
+      <point x="0.0" y="-148.5" />
+      <point x="513.0" y="-358.0" />
+      <point x="528.59375" y="-358.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="field.FIELD" target="object" relationship="REALIZATION">
+      <point x="0.0" y="-93.5" />
+      <point x="146.5" y="-358.0" />
+      <point x="528.59375" y="-358.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="BaseException" target="object" relationship="REALIZATION">
+      <point x="0.0" y="-14.5" />
+      <point x="-43.0" y="-358.0" />
+      <point x="528.59375" y="-358.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="rules.RULES_HORIZONTAL" target="rules.RULES" relationship="REALIZATION">
+      <point x="0.0" y="-27.0" />
+      <point x="1726.09375" y="143.0" />
+      <point x="1356.5" y="143.0" />
+      <point x="0.0" y="49.0" />
+    </edge>
+    <edge source="main.Main" target="object" relationship="REALIZATION">
+      <point x="0.0" y="-38.5" />
+      <point x="324.5" y="-358.0" />
+      <point x="528.59375" y="-358.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="game.Game" target="object" relationship="REALIZATION">
+      <point x="0.0" y="-225.5" />
+      <point x="812.5" y="-358.0" />
+      <point x="528.59375" y="-358.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="rules.RULES_VERTICAL" target="rules.RULES" relationship="REALIZATION">
+      <point x="0.0" y="-27.0" />
+      <point x="782.5390625" y="143.0" />
+      <point x="1356.5" y="143.0" />
+      <point x="0.0" y="49.0" />
+    </edge>
+    <edge source="rules.RULES" target="object" relationship="REALIZATION">
+      <point x="0.0" y="-49.0" />
+      <point x="1356.5" y="-358.0" />
+      <point x="528.59375" y="-358.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="Exceptions.FullColumnException" target="Exception" relationship="REALIZATION">
+      <point x="0.0" y="-14.5" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="Exception" target="BaseException" relationship="REALIZATION">
+      <point x="0.0" y="-14.5" />
+      <point x="0.0" y="14.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic" zoom="0.8076525336091003" showDependencies="false" x="611.3207426376441" y="-7.5" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Inner Classes</Category>
+    <Category>Methods</Category>
+  </Categories>
+</Diagram>
+

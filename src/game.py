@@ -10,7 +10,7 @@ from rules import RULES_VERTICAL, RULES_HORIZONTAL, RESULT, RULES_DIAGONALLY
 import ui
 
 
-class Main:
+class Game:
     def get_max_unfilled_in_column(self, column):
         """ Pobranie najniższego numeru wiersza dla danej kolumny, który nie jest uzupełniony.
              Args:
@@ -168,9 +168,3 @@ class Main:
             for j in range(0, 6):
                 circle = self.ui.canvas.create_circle(70 + (self.default_width * i), 160 + (self.default_width * j), 40)
                 self.ui.fields.append(f.FIELD(circle, i + 1, j + 1))
-
-        if __name__ == '__main__':
-            self.ui.window.mainloop()
-
-
-main = Main()

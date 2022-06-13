@@ -1,10 +1,7 @@
 import tkinter
 
-import field as f
 import ui
 from Exceptions import FullColumnException
-from columnButton import ColumnButton
-from consts import Consts
 from player import PLAYER
 from rules import RULES_VERTICAL, RULES_HORIZONTAL, RESULT, RULES_DIAGONALLY
 
@@ -71,11 +68,6 @@ class Game:
             self.active_player = self.player1
         self.ui.change_active_player_label(self.active_player.name)
 
-    def _create_circle(self, x, y, r, **kwargs):
-        """ Metoda do tworzenia kół, reprezentujących pola, do wrzucania monet
-        """
-        return self.create_oval(x - r, y - r, x + r, y + r, **kwargs)
-
     def add_coin_to_column(self, column, max_unfilled, colour):
         """ Metoda dodawania monety do kolumny.
             Jeśli następuje próba wrzucenia monety do kolumny 0 - podnoszony jest wyjątek FullColumnException
@@ -95,12 +87,8 @@ class Game:
         """ Metoda służąca do resetowania gry. Ustawia pola na nieuzupełnione isFilled oraz ustawia gracza na 0.
             Odblokowuje przyciski do wrzucania monet oraz zmienia aktywnego gracza.
         """
-        for field in self.ui.fields:
-            self.ui.canvas.itemconfig(field.circle, fill="")
-            field.isFilled = 0
-            field.player = 0
-        for button in self.ui.buttons:
-            button.activate()
+        self.ui.clear_fields()
+        self.ui.activate_buttons()
         self.active_player = self.player1
         self.ui.change_active_player_label(self.active_player.name)
 
@@ -138,19 +126,9 @@ class Game:
 
         self.active_player = self.player1
 
-        self.ui = ui.UI()
+        self.ui = ui.UI(self)
 
         self.resetButton = tkinter.Button(self.ui.window, text="Resetuj", command=self.reset_game)
         self.resetButton.place(x=160, y=20)
 
         self.ui.change_active_player_label(self.active_player.name)
-
-        for i in range(0, 7):
-            self.ui.buttons.append(
-                ColumnButton(20 + (Consts.default_width * i), 60, "Kolumna " + str(i + 1), i + 1, self.ui.window, self))
-
-        for i in range(0, 7):
-            for j in range(0, 6):
-                circle = self.ui.canvas.create_circle(70 + (Consts.default_width * i), 160 + (Consts.default_width * j),
-                                                      40)
-                self.ui.fields.append(f.FIELD(circle, i + 1, j + 1))

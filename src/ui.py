@@ -1,5 +1,7 @@
 import tkinter
 
+import field as f
+from columnButton import ColumnButton
 from consts import Consts
 
 
@@ -13,7 +15,7 @@ tkinter.Canvas.create_circle = _create_circle
 class UI:
     activePlayerText = "Tura "
 
-    def __init__(self):
+    def __init__(self, game):
         self.fields = list()
         self.buttons = []
         self.window = self.init_window()
@@ -23,6 +25,9 @@ class UI:
 
         gameStatus = tkinter.Label(self.window, textvariable=self.gameStatusText)
         gameStatus.place(x=20, y=20)
+
+        self.create_buttons(game)
+        self.create_fields()
 
     def change_active_player_label(self, gracz):
         """
@@ -67,6 +72,32 @@ class UI:
         """
         for button in self.buttons:
             button.block()
+
+    def activate_buttons(self):
+        """
+        Iteruje po liśce przycisków, aktywując (ustawiając state na normal) wszystkie.
+        :return:
+        """
+        for button in self.buttons:
+            button.activate()
+
+    def clear_fields(self):
+        for field in self.fields:
+            self.canvas.itemconfig(field.circle, fill="")
+            field.isFilled = 0
+            field.player = 0
+
+    def create_buttons(self, game):
+        for i in range(0, 7):
+            self.buttons.append(
+                ColumnButton(20 + (Consts.default_width * i), 60, "Kolumna " + str(i + 1), i + 1, self.window, game))
+
+    def create_fields(self):
+        for i in range(0, 7):
+            for j in range(0, 6):
+                circle = self.canvas.create_circle(70 + (Consts.default_width * i), 160 + (Consts.default_width * j),
+                                                   40)
+                self.fields.append(f.FIELD(circle, i + 1, j + 1))
 
     def finish_game_popup(self, text):
         """

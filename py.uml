@@ -14,6 +14,7 @@
     <node x="-163.0" y="427.0">Exceptions.FullColumnException</node>
     <node x="1188.59375" y="168.0">rules.RULES_DIAGONALLY</node>
     <node x="273.0" y="-146.0">main.Main</node>
+    <node x="467.59375" y="223.5">consts.Consts</node>
     <node x="1575.59375" y="245.5">rules.RULES_HORIZONTAL</node>
     <node x="650.0" y="-333.0">game.Game</node>
     <node x="-91.0" y="258.0">Exception</node>
@@ -35,6 +36,13 @@
       <point x="1372.09375" y="143.0" />
       <point x="1356.5" y="143.0" />
       <point x="0.0" y="49.0" />
+    </edge>
+    <edge source="consts.Consts" target="object" relationship="REALIZATION">
+      <point x="-0.0" y="49.0" />
+      <point x="528.59375" y="473.5" />
+      <point x="-180.5" y="473.5" />
+      <point x="-180.5" y="-397.5" />
+      <point x="-37.0" y="-0.0" />
     </edge>
     <edge source="ui.UI" target="object" relationship="REALIZATION">
       <point x="0.0" y="-148.5" />
@@ -93,7 +101,7 @@
       <point x="0.0" y="14.5" />
     </edge>
   </edges>
-  <settings layout="Hierarchic" zoom="0.8076525336091003" showDependencies="false" x="611.3207426376441" y="-7.5" />
+  <settings layout="Hierarchic" zoom="0.5014436958614052" showDependencies="false" x="1256.8195777351248" y="-8.5" />
   <SelectedNodes />
   <Categories>
     <Category>Fields</Category>

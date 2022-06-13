@@ -4,6 +4,7 @@ from tkinter.constants import NORMAL
 
 import field as f
 from Exceptions import FullColumnException
+from consts import Consts
 from player import PLAYER
 from rules import RULES_VERTICAL, RULES_HORIZONTAL, RESULT, RULES_DIAGONALLY
 
@@ -109,7 +110,7 @@ class Game:
                 Zwraca ID przycisku
         """
         button = tkinter.Button(self.ui.window, text=name, command=lambda: self.button_click(column))
-        button.place(x=x, y=y, width=self.default_width)
+        button.place(x=x, y=y, width=Consts.default_width)
         return button
 
     def add_coin_to_column(self, column, max_unfilled, colour):
@@ -153,8 +154,6 @@ class Game:
 
         self.ui = ui.UI()
 
-        self.default_width = 100
-
         self.resetButton = tkinter.Button(self.ui.window, text="Resetuj", command=self.reset_game)
         self.resetButton.place(x=160, y=20)
 
@@ -162,9 +161,9 @@ class Game:
 
         for i in range(0, 7):
             self.ui.buttons.append(
-                self.create_button(20 + (self.default_width * i), 60, "Kolumna " + str(i + 1), i + 1))
+                self.create_button(20 + (Consts.default_width * i), 60, "Kolumna " + str(i + 1), i + 1))
 
         for i in range(0, 7):
             for j in range(0, 6):
-                circle = self.ui.canvas.create_circle(70 + (self.default_width * i), 160 + (self.default_width * j), 40)
+                circle = self.ui.canvas.create_circle(70 + (Consts.default_width * i), 160 + (Consts.default_width * j), 40)
                 self.ui.fields.append(f.FIELD(circle, i + 1, j + 1))

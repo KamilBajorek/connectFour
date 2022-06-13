@@ -1,6 +1,8 @@
 import tkinter
 from tkinter import DISABLED
 
+from consts import Consts
+
 
 def _create_circle(self, x, y, r, **kwargs):
     return self.create_oval(x - r, y - r, x + r, y + r, **kwargs)
@@ -37,7 +39,7 @@ class UI:
         """
         window = tkinter.Tk()
         window.title("Connect Four")
-        window.geometry("1080x720")
+        window.geometry(f"{Consts.window_width}x{Consts.window_height}")
         window.resizable(width=False, height=False)
 
         return window
@@ -47,7 +49,7 @@ class UI:
         Tworzy canvas, dodawany do głównego okna.
         :return: canvas
         """
-        canvas = tkinter.Canvas(self.window, width=1080, height=720)
+        canvas = tkinter.Canvas(self.window, width=Consts.window_width, height=Consts.window_height)
         canvas.grid()
 
         return canvas

@@ -10,10 +10,10 @@ class MainTest(unittest.TestCase):
         self.game = Game()
 
     def testTwoMovesAtTheSameColumn(self):
-        self.game.button_click(1)
-        self.game.button_click(1)
-        self.game.button_click(1)
-        self.game.button_click(1)
+        self.game.ui.buttons[1].button_click(1, self.game)
+        self.game.ui.buttons[1].button_click(1, self.game)
+        self.game.ui.buttons[1].button_click(1, self.game)
+        self.game.ui.buttons[1].button_click(1, self.game)
 
         field1 = RULES.getFieldAt(self.game.ui.fields, 1, 6)
         field2 = RULES.getFieldAt(self.game.ui.fields, 1, 5)
@@ -26,12 +26,12 @@ class MainTest(unittest.TestCase):
         self.assertTrue(field4.isFilled and field4.player == 2)
 
     def testRaisingFullColumnExceptionWhenColumnIsFull(self):
-        self.game.button_click(1)
-        self.game.button_click(1)
-        self.game.button_click(1)
-        self.game.button_click(1)
-        self.game.button_click(1)
-        self.game.button_click(1)
+        self.game.ui.buttons[1].button_click(1, self.game)
+        self.game.ui.buttons[1].button_click(1, self.game)
+        self.game.ui.buttons[1].button_click(1, self.game)
+        self.game.ui.buttons[1].button_click(1, self.game)
+        self.game.ui.buttons[1].button_click(1, self.game)
+        self.game.ui.buttons[1].button_click(1, self.game)
 
         with self.assertRaises(FullColumnException):
-            self.game.button_click(1)
+            self.game.ui.buttons[1].button_click(1, self.game)

@@ -1,5 +1,4 @@
 import tkinter
-from tkinter import DISABLED
 
 from consts import Consts
 
@@ -54,13 +53,20 @@ class UI:
 
         return canvas
 
+    def block_button(self, column):
+        """
+        Blokuje przycisk.
+        :return:
+        """
+        self.buttons[column].block()
+
     def block_buttons(self):
         """
         Iteruje po liśce przycisków, blokując (ustawiając state na disabled) wszystkie.
         :return:
         """
         for button in self.buttons:
-            button["state"] = DISABLED
+            button.block()
 
     def finish_game_popup(self, text):
         """

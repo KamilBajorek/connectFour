@@ -1,14 +1,12 @@
 import tkinter
-from tkinter import DISABLED
-from tkinter.constants import NORMAL
 
 import field as f
+import ui
 from Exceptions import FullColumnException
+from columnButton import ColumnButton
 from consts import Consts
 from player import PLAYER
 from rules import RULES_VERTICAL, RULES_HORIZONTAL, RESULT, RULES_DIAGONALLY
-
-import ui
 
 
 class Game:
@@ -25,27 +23,6 @@ class Game:
                 if field.row >= max_unfilled:
                     max_unfilled = field.row
         return max_unfilled
-
-    def button_click(self, number):
-        """ Obsługuje pojedyncze kliknięcie przycisku nad kolumną.
-            Sprawdza najwyższy wolny wiersz do którego można dorzucić monetę dla tej kolumny.
-            Dodaje monetę do kolumny.
-            Blokuje przycisk jeśli zapełniono wszystkie kolumny.
-            Sprawdza wynik gry i kończy ją w przypadku zwycięstwa/remisu.
-            W przeciwnym wypadku zmienia aktywnego gracza.
-            Args:
-                number: Numer klikniętej kolumny
-        """
-        max_unfilled = self.get_max_unfilled_in_column(number)
-        self.add_coin_to_column(number, max_unfilled, self.active_player.colour)
-
-        if max_unfilled == 1:
-            self.ui.buttons[number - 1]["state"] = DISABLED
-
-        result = self.check_result(number, max_unfilled)
-        if result != RESULT.IN_PROGRESS:
-            self.finish_game(result)
-        self.change_active_player()
 
     def finish_game(self, result):
         """ Metoda kończenia gry - blokuje przyciski do wrzucania monet.
@@ -99,20 +76,6 @@ class Game:
         """
         return self.create_oval(x - r, y - r, x + r, y + r, **kwargs)
 
-    def create_button(self, x, y, name, column):
-        """ Metoda do tworzenia przycisków
-            Args:
-                x: Położenie x przycisku
-                y: Położenie y przycisku
-                name: Nazwa przycisku (np. Kolumna 1)
-                column: Numer kolumny przycisku
-            Returns:
-                Zwraca ID przycisku
-        """
-        button = tkinter.Button(self.ui.window, text=name, command=lambda: self.button_click(column))
-        button.place(x=x, y=y, width=Consts.default_width)
-        return button
-
     def add_coin_to_column(self, column, max_unfilled, colour):
         """ Metoda dodawania monety do kolumny.
             Jeśli następuje próba wrzucenia monety do kolumny 0 - podnoszony jest wyjątek FullColumnException
@@ -137,9 +100,32 @@ class Game:
             field.isFilled = 0
             field.player = 0
         for button in self.ui.buttons:
-            button["state"] = NORMAL
+            button.activate()
         self.active_player = self.player1
         self.ui.change_active_player_label(self.active_player.name)
+
+    def on_button_click(self, number):
+        """ Obsługuje pojedyncze kliknięcie przycisku nad kolumną.
+            Sprawdza najwyższy wolny wiersz do którego można dorzucić monetę dla tej kolumny.
+            Dodaje monetę do kolumny.
+            Blokuje przycisk jeśli zapełniono wszystkie kolumny.
+            Sprawdza wynik gry i kończy ją w przypadku zwycięstwa/remisu.
+            W przeciwnym wypadku zmienia aktywnego gracza.
+            Args:
+                number: Numer klikniętej kolumny
+                :param number:
+                :param game:
+        """
+        max_unfilled = self.get_max_unfilled_in_column(number)
+        self.add_coin_to_column(number, max_unfilled, self.active_player.colour)
+
+        if max_unfilled == 1:
+            self.ui.block_button(number - 1)
+
+        result = self.check_result(number, max_unfilled)
+        if result != RESULT.IN_PROGRESS:
+            self.finish_game(result)
+        self.change_active_player()
 
     def __init__(self):
 
@@ -161,9 +147,10 @@ class Game:
 
         for i in range(0, 7):
             self.ui.buttons.append(
-                self.create_button(20 + (Consts.default_width * i), 60, "Kolumna " + str(i + 1), i + 1))
+                ColumnButton(20 + (Consts.default_width * i), 60, "Kolumna " + str(i + 1), i + 1, self.ui.window, self))
 
         for i in range(0, 7):
             for j in range(0, 6):
-                circle = self.ui.canvas.create_circle(70 + (Consts.default_width * i), 160 + (Consts.default_width * j), 40)
+                circle = self.ui.canvas.create_circle(70 + (Consts.default_width * i), 160 + (Consts.default_width * j),
+                                                      40)
                 self.ui.fields.append(f.FIELD(circle, i + 1, j + 1))

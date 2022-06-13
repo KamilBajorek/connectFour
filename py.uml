@@ -3,24 +3,32 @@
   <ID>Python</ID>
   <OriginalElement>#C:/Users/Kamil/WORKSPACE/studia/connectFour/src/Exceptions.py</OriginalElement>
   <nodes>
-    <node x="459.59375" y="-491.0">typing.Hashable</node>
-    <node x="396.0" y="-256.0">ui.UI</node>
-    <node x="632.0390625" y="245.5">rules.RULES_VERTICAL</node>
     <node x="-106.0" y="-122.0">BaseException</node>
     <node x="40.0" y="-201.0">field.FIELD</node>
-    <node x="491.59375" y="-412.0">object</node>
-    <node x="1206.0" y="-156.5">rules.RULES</node>
+    <node x="459.59375" y="-491.0">typing.Hashable</node>
+    <node x="632.0390625" y="245.5">rules.RULES_VERTICAL</node>
     <node x="995.0" y="-168.0">player.PLAYER</node>
-    <node x="-163.0" y="427.0">Exceptions.FullColumnException</node>
-    <node x="1188.59375" y="168.0">rules.RULES_DIAGONALLY</node>
-    <node x="273.0" y="-146.0">main.Main</node>
-    <node x="467.59375" y="223.5">consts.Consts</node>
     <node x="1575.59375" y="245.5">rules.RULES_HORIZONTAL</node>
-    <node x="650.0" y="-333.0">game.Game</node>
+    <node x="1188.59375" y="168.0">rules.RULES_DIAGONALLY</node>
     <node x="-91.0" y="258.0">Exception</node>
+    <node x="102.09375" y="201.0">columnButton.ColumnButton</node>
+    <node x="396.0" y="-256.0">ui.UI</node>
+    <node x="1206.0" y="-156.5">rules.RULES</node>
+    <node x="-163.0" y="427.0">Exceptions.FullColumnException</node>
+    <node x="273.0" y="-146.0">main.Main</node>
+    <node x="491.59375" y="-412.0">object</node>
+    <node x="650.0" y="-333.0">game.Game</node>
+    <node x="467.59375" y="223.5">consts.Consts</node>
   </nodes>
   <notes />
   <edges>
+    <edge source="columnButton.ColumnButton" target="object" relationship="REALIZATION">
+      <point x="-0.0" y="-71.5" />
+      <point x="243.59375" y="98.0" />
+      <point x="1741.09375" y="98.0" />
+      <point x="1741.09375" y="-397.5" />
+      <point x="37.0" y="-0.0" />
+    </edge>
     <edge source="object" target="typing.Hashable" relationship="REALIZATION">
       <point x="0.0" y="-14.5" />
       <point x="0.0" y="14.5" />
@@ -68,15 +76,15 @@
       <point x="1356.5" y="143.0" />
       <point x="0.0" y="49.0" />
     </edge>
-    <edge source="main.Main" target="object" relationship="REALIZATION">
-      <point x="0.0" y="-38.5" />
-      <point x="324.5" y="-358.0" />
-      <point x="528.59375" y="-358.0" />
-      <point x="0.0" y="14.5" />
-    </edge>
     <edge source="game.Game" target="object" relationship="REALIZATION">
       <point x="0.0" y="-225.5" />
       <point x="812.5" y="-358.0" />
+      <point x="528.59375" y="-358.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="main.Main" target="object" relationship="REALIZATION">
+      <point x="0.0" y="-38.5" />
+      <point x="324.5" y="-358.0" />
       <point x="528.59375" y="-358.0" />
       <point x="0.0" y="14.5" />
     </edge>
@@ -101,7 +109,7 @@
       <point x="0.0" y="14.5" />
     </edge>
   </edges>
-  <settings layout="Hierarchic" zoom="0.5014436958614052" showDependencies="false" x="1256.8195777351248" y="-8.5" />
+  <settings layout="Hierarchic" zoom="1.0" showDependencies="false" x="848.0" y="-8.5" />
   <SelectedNodes />
   <Categories>
     <Category>Fields</Category>
